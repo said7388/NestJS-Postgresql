@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateStudentDto } from './dto/create-student.dto';
+import { CreateStudentDto, PaginationDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
 
@@ -17,8 +17,12 @@ export class StudentsService {
     return this.studentRepository.save(student);
   }
 
-  findAll() {
-    return this.studentRepository.find();
+  findAll(paginate: PaginationDto) {
+    const { limit, offset } = paginate;
+    return this.studentRepository.find({
+      skip: offset,
+      take: limit,
+    });
   }
 
   async findOne(id: string) {
