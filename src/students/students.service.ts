@@ -33,6 +33,9 @@ export class StudentsService {
       skip: offset,
       take: limit,
       relations: ['subject'],
+      order: {
+        name: 'ASC',
+      },
     });
   }
 
