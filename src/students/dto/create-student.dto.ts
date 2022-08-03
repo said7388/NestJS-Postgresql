@@ -17,6 +17,9 @@ export class CreateStudentDto {
 
   @IsString()
   address: string;
+
+  @IsString({ each: true })
+  readonly subject: string[];
 }
 
 export class PaginationDto {
